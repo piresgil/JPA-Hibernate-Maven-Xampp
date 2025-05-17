@@ -1,0 +1,54 @@
+<!--
+  Configuração da unidade de persistência JPA.
+  Define os parâmetros para a conexão à base de dados e propriedades do Hibernate.
+-->
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             version="2.2">
+
+    <!--
+      Define a unidade de persistência com nome "exemplo-jpa" usando transação RESOURCE_LOCAL.
+    -->
+    <persistence-unit name="exemplo-jpa" transaction-type="RESOURCE_LOCAL">
+        <!--
+          Define o provedor JPA, neste caso o Hibernate.
+        -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!--
+          Propriedades para configurar a conexão JDBC e comportamento do Hibernate.
+        -->
+        <properties>
+            <!-- Driver JDBC para conexão com MySQL (conector MySQL 8+). -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+
+            <!--
+              URL de conexão JDBC para base de dados local "jpa" no MySQL,
+              com SSL desativado e timezone configurado para UTC.
+            -->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/jpa?useSSL=false&amp;serverTimezone=UTC"/>
+
+            <!-- Usuário da base de dados MySQL. -->
+            <property name="javax.persistence.jdbc.user" value="root"/>
+
+            <!-- Senha do utilizador da base de dados (vazia neste caso). -->
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <!-- Dialeto do Hibernate para MySQL 8, para gerar SQL específico do MySQL 8. -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!--
+              Estratégia de criação das tabelas na base de dados.
+              "update" mantém as tabelas sincronizadas com as entidades, atualizando conforme necessário.
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Define se o Hibernate deve mostrar o SQL gerado no console. false = não mostrar. -->
+            <property name="hibernate.show_sql" value="false"/>
+
+            <!-- Define se o SQL mostrado deve ser formatado para facilitar leitura. false = sem formatação. -->
+            <property name="hibernate.format_sql" value="false"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
